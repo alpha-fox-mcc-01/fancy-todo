@@ -4,7 +4,8 @@
   "description": "tugas p2-w1",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "client": "cd client && live-server --host=localhost"
   },
   "repository": {
     "type": "git",

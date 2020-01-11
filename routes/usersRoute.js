@@ -8,4 +8,6 @@ router.post('/', UserController.signup)
 router.patch('/', authenticate, UserController.changePassword)
 router.delete('/', authenticate, UserController.deactivateAccount)
 
+router.post('/gAuth', UserController.gAuth)
+
 module.exports = router

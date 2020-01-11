@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 
 class UserController {
+	static gAuth(req, res, next) {
+		res.send('ok')
+	}
+
 	static signup(req, res, next) {
 		const { email, fullname, password } = req.body
 		const values = {
