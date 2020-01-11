@@ -2,7 +2,7 @@ const Todo = require('../models/todo')
 
 module.exports = {
   add(req, res) {
-    Todo.add(req.body)
+    Todo.add(req.body, req.activeUserId)
       .then(success => {
         res
           .status(201)

@@ -6,10 +6,11 @@ const todoSchema = new Schema({
   description: String,
   status: Boolean,
   due_date: Date,
-  UserId: Number
+  UserId: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 })
 
 const Todo = mongoose.model('Todo', todoSchema)
+
 module.exports = {
   add(todo) {
     const { name, description, status, due_date } = todo

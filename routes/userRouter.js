@@ -1,6 +1,8 @@
 const express = require('express')
 const userRouter = express.Router()
+const userController = require('../controllers/userController')
 
-userRouter.use('/', (req, res) => res.send('localhost/user'))
+userRouter.get('/login', userController.login)
+userRouter.post('/register', userController.register)
 
 module.exports = userRouter
