@@ -6,7 +6,7 @@ $(document).ready(function () {
 	})
 
 	// HIDE MAIN SECTION IF NOT SIGN IN
-	$('#mainSection').hide()
+	// $('#mainSection').hide()
 
 
 });

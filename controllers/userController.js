@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 
 class UserController {
-	static gAuth(req, res, next) {
+	static googleAuth(req, res, next) {
 		res.send('ok')
 	}
 

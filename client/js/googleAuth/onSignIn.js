@@ -9,9 +9,8 @@ function onSignIn(googleUser) {
 	})
 		.done(result => {
 			console.log('ini result');
-
-			$('#mainSection').show()
-			$('#loginSection').hide()
+			// $('#mainSection').show()
+			// $('#loginSection').hide()
 		})
 		.fail()
 }
