@@ -46,6 +46,9 @@ module.exports = {
             const token = jwt.sign({ _id: user._id }, process.env.SECRET)
             console.log(token)
             req.headers.user_token = token
+            req.activeUserId = user._id
+            // req.body.UserId = user._id
+            console.log(req.body.UserId)
             res
               .status(200)
               .json({ token })
