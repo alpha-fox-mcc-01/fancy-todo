@@ -24,7 +24,8 @@ class TodoController {
 		}
 
 		let createdTodos
-		Todo.create(values)
+		Todo
+			.create(values)
 			.then(result => {
 				if (result) {
 					createdTodos = result
@@ -41,7 +42,7 @@ class TodoController {
 
 			})
 			.then(updateResult => {
-				res.status(201).json({ createdTodos, updateResult })
+				res.status(201).json({ createdTodos })
 			})
 			.catch(err => {
 				console.log(err);

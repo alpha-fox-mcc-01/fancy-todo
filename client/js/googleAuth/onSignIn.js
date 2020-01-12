@@ -6,14 +6,14 @@ function onSignIn(googleUser) {
 		headers: { "google_token": google_token }
 	})
 		.done(result => {
+			// put access_token to localStorage
 			localStorage.setItem('access_token', result)
-			// $('#mainSection').show()
-			// $('#loginSection').hide()
+			$('#mainSection').show()
+			$('#loginSection').hide()
 
 			// fetch my todo
+			console.log('fetching todos');
 			getMyTodo()
-
-			// put access_token to localStorage
 		})
 		.fail(err => {
 			console.log(err)
