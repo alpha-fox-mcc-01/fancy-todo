@@ -1,3 +1,5 @@
+var userId 
+
 function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
     console.log(googleUser.getBasicProfile())
@@ -13,6 +15,7 @@ function onSignIn(googleUser) {
       toastr.success('Login successful!')
       $("#login").hide()
       $("#mainpage").show()
+      userId = result.userId
       localStorage.setItem('access_token', result.access_token)
     })
     .fail(err => {
@@ -36,17 +39,23 @@ function onSignIn(googleUser) {
     //         })
     // })
 
+    userTodo(userId)
+            .then(result => {
+              console.log()
+            })
+
     $("#signin").click(event => {
       let email = $("#email")
       console.log('masuk')
+      $("#login").hide()
+      
       let password = $("#password")
       console.log(email.val(), password.val(), 'ini credentials')
       manualLogin(email.val(), password.val())
               .then(result => {
                 console.log(result, 'ini result')
-                toastr.success('Login successful!')
-                $("#login").hide()
                 $("#mainpage").show()
+                toastr.success('Login successful!')
               })
               .catch(err => {
                 console.log(err)
@@ -77,6 +86,23 @@ function onSignIn(googleUser) {
       $("#register").hide()
       $("#login").show()
     })
+    
+
+    $("#addButton").click(event => {
+      let todo = $("#addTodo")
+      let due_date = $("#due_date")
+      let status = "open"
+      addTodo(todo.val(), due_date.val(), status, userId)
+              .then(result => {
+                console.log(result)
+                toastr.success('Task added!')
+
+              })
+              .catch(err => {
+                toastr.warning('Failed to add task')
+              })
+    })
+
 
   
   })

@@ -77,9 +77,7 @@ class userController {
                         }, process.env.SECRET)
                         console.log('login berhasil')
                         res.status(200).json({access_token : access_token})
-                    } else {
-                        next(401)
-                    }
+                    } 
                 } else {
                     next(401)
                 }
@@ -117,7 +115,8 @@ class userController {
                 const access_token = jwt.sign({
                     id: loggedinUser._id,
                 }, process.env.SECRET)
-                res.status(200).json({access_token : access_token})
+                
+                res.status(200).json({access_token : access_token, userId: loggedinUser._id})
             })
             .catch(err => {
                 console.log(err)

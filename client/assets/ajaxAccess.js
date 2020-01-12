@@ -1,6 +1,7 @@
+const access_token = localStorage.getItem('access_token')
 
 function allTodos() {
-    const access_token = localStorage.getItem('access_token')
+    
     console.log('masuk ajax')
     return new Promise( (resolve, reject) => {
         $.ajax({
@@ -50,6 +51,32 @@ function manualSignup(username, email, password) {
                 username: username,
                 email : email,
                 password: password
+            }
+        })
+        .done(data => {
+            console.log(data)
+            resolve(data)
+        })
+        .fail(err => {
+            reject(err)
+        }) 
+    })
+}
+
+
+function addTodo(name, due_date, status, userId) {
+    return new Promise( (resolve, reject) => {
+        $.ajax({
+            method: 'POST',
+            url: "http://localhost:3000/todo",
+            data: {
+               name: name,
+               due_date : due_date,
+               status : status,
+               userId: userId
+            },
+            headers : {
+                access_token : access_token
             }
         })
         .done(data => {

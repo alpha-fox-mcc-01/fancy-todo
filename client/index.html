@@ -50,26 +50,12 @@
                                                 <p class="text-xs italic text-red-500">Please choose a password.</p>
                                             </div>
                                             <div class="mb-6 text-center">
-                                                <button id="signin" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                                <button id="signin" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full">
                                                         Sign In
                                                 </button> 
                                                 <h3>&mdash;OR&mdash;</h3>
-                                               <div style="margin-left: 50px;" class="g-signin2" data-width="250" data-height="50" data-longtitle="true" data-onsuccess="onSignIn"></div>
-                                                <br>
-                                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                                         <a href="#" onclick="signOut();">Sign out</a>
-                                                </button>
-                                               
-                                                <script>
-                                                function signOut() {
-                                                    var auth2 = gapi.auth2.getAuthInstance();
-                                                    auth2.signOut().then(function () {
-                                                    console.log('User signed out.');
-                                                    });
-                                                    localStorage.removeItem('access_token')
-                                                }
-                                                </script>
                                             </div>
+                                            <div style="margin-left: 50px;" class="g-signin2" data-width="250" data-height="50" data-longtitle="true" data-onsuccess="onSignIn"></div>
                                             <hr class="mb-6 border-t" />
                                             <div class="text-center">
                                                 <a
@@ -139,8 +125,26 @@
 
         <!-- To-do Page -->
         <section id="mainpage">
+                <div class="bg-purple w-full px-2">
+                    <div class="container mx-auto rounded-t shadow bg-cover bg-bottom m-4" style="background-image: url('https://66.media.tumblr.com/f38581a0cbe49d14279aaf06ef631275/tumblr_nhihffVyUW1t5mowoo1_500.jpg')">
+                           <!-- Text shadow utilities will be cool -->
+                        <nav class="flex justify-between p-8 items-center mb-16">
+                        <a href="#" class="font-sans text-black md:text-black text-sm md:text-4xl font-thin">Just-Do-It!</a>
+                        <ul class="list-reset flex">
+                            <li><a href="#" class="text-black md:text-black p-2 md:p-4 whitespace-no-wrap">About Us</a></li>
+                            <li><a href="#" class="text-black md:text-black p-2 md:p-4">Contact</a></li>
+                            <li><a href="#" onclick="signOut();" class="text-black md:text-black p-2 md:p-4">Sign Out</a></li>
+                        </ul>
+                        </nav>
+                          
+                        <div class="text-center text-black pb-16">
+                        <h1 class="font-sans font-thin">What's your focus today?</h1>
+                        <h2 class="font-thin text-sm tracking-wide mt-2 mb-4">Observe the space between your thoughts, then observe the observer.</h2>
+                    </div>
+                    </div>
+                </div>
                 <div class="flex mb-4">
-                          <div style="margin-left: 50px;" class="w-1/3 h-12">
+                          <div style="margin-left: 50px; margin-top: 10px;" class="w-1/3 h-12">
                             <div class="rounded rounded-t-lg overflow-hidden shadow max-w-xs my-3">
                                     <img src="https://i.imgur.com/dYcYQ7E.png" class="w-full" />
                                   <div class="flex justify-center -mt-8">
@@ -162,18 +166,19 @@
                                     </div>
                               </div>
                           </div>
-                          <div class="w-1/3 h-12">
-                            <div class="h-80 w-full flex items-center justify-center bg-teal-lightest font-sans">
-                                    <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+                          <div style="margin-top: 10px;" class="w-1/2 h-12">
+                            <div class="h-80 w-full flex items-center bg-teal-lightest font-sans">
+                                    <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-4/4 lg:max-w-lg">
                                         <div class="mb-4">
-                                            <h1 class="text-grey-darkest">Todo List</h1>
+                                            <h1 class="text-grey-darkest">New To-do &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp;  Due Date</h1>
                                             <div class="flex mb-4 items-center">
-                                                <input class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Add Todo">
-                                                <button class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">Add</button>
+                                                <input id="addTodo" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Add Todo">
+                                                <input id="due_date" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" type="date">
+                                                <button id="addButton" class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">Add</button>
                                             </div>
                                         </div>
                                         <div>
-                                            <div class="flex mb-4 items-center">
+                                            <div id="listtodos" class="flex mb-4 items-center">
                                                 <p class="w-full text-grey-darkest">Add another component to Tailwind Components</p>
                                                 <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Done</button>
                                                 <button class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">Remove</button>
@@ -187,27 +192,14 @@
                                     </div>
                                 </div>
                           </div>
-                          <div class="w-1/3 h-12">
+                          <div style="margin-top: 25px;" class="w-1/2 h-12">
                             <div class="max-w-md w-full lg:flex">
-                                    <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('https://tailwindcss.com/img/card-left.jpg')" title="Woman holding a mug">
+                                    <div class="h-48 lg:h-auto lg:w-24 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('https://tailwindcss.com/img/card-left.jpg')" title="Woman holding a mug">
                                     </div>
                                     <div class="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                                      <div class="mb-8">
-                                        <p class="text-sm text-grey-dark flex items-center">
-                                          <svg class="text-grey w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
-                                          </svg>
-                                          Members only
-                                        </p>
+                                      <div class="mb-4">
                                         <div class="text-black font-bold text-xl mb-2">Can coffee make you a better developer?</div>
                                         <p class="text-grey-darker text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
-                                      </div>
-                                      <div class="flex items-center">
-                                        <img class="w-10 h-10 rounded-full mr-4" src="https://pbs.twimg.com/profile_images/885868801232961537/b1F6H4KC_400x400.jpg" alt="Avatar of Jonathan Reinink">
-                                        <div class="text-sm">
-                                          <p class="text-black leading-none">Jonathan Reinink</p>
-                                          <p class="text-grey-dark">Aug 18</p>
-                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -222,6 +214,17 @@
         <script src="assets/ajaxAccess.js"></script>
         <script src="assets/main.js"></script>
 
+        <script>
+                function signOut() {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                    });
+                    localStorage.removeItem('access_token')
+                    $("#mainpage").hide()
+                    $("#login").show()
+                }
+        </script>
     </body>
 
     

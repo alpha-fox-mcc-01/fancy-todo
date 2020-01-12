@@ -4,13 +4,16 @@ module.exports = function (req, res, next) {
     let access_token = req.headers.access_token
     console.log('masuk authentication!!!!!!!!!!!!!')
     try {
+        console.log(access_token)
         let decoded = jwt.verify(access_token, process.env.SECRET)
         req.currentUserId = decoded.id
+        console.log(decoded)
         User.findOne( {
             _id : req.currentUserId
         })
             .then(result => {
                 if (result) {
+                    console.log(req.currentUserId)
                     console.log(result)
                     next()
                 } else {
