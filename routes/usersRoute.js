@@ -8,4 +8,8 @@ router.post('/', UserController.signup)
 router.patch('/', authenticate, UserController.changePassword)
 router.delete('/', authenticate, UserController.deactivateAccount)
 
+router.get('/todos', authenticate, UserController.getMyTodo)
+
+router.post('/gAuth', UserController.googleAuth)
+
 module.exports = router

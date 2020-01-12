@@ -25,11 +25,17 @@ Deactivate / remove account:
 |-|-|-|-|-
 | Private | DELETE | /users | - | msg: Account deactivated
 
+\
+Fetch current user's todo
+| Access Type	| Request | URL | Params | Response
+|-|-|-|-|-
+| Private | GET | /users/todos | - | array of Todos
 
 &nbsp;
 ---
 ### TODO API
-Create new Todo (masih public)
+Create new Todo
 | Access Type	| Request | URL | Params | Response
 |-|-|-|-|-
-| Public | POST | /users | email, password |access_token
+| Private | POST | /users | follow Todo model | [createdTodo, updateResult]
+parameters: userId, title, descriptions, priority, category, isShoppingList, isDone
