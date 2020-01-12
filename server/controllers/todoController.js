@@ -39,8 +39,10 @@ class todoController {
     }
 
     static getTodoUser(req, res, next) {
+        console.log(req.params.id, 'paramsnya bener ga?')
         Todo.find({userId: req.params.id})
             .then(result => {
+                console.log('masuk controller')
                 res.status(200).json({result: result})
             })
             .catch(err => {

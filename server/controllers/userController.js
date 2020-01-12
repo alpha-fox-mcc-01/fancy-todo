@@ -78,9 +78,7 @@ class userController {
                         console.log('login berhasil')
                         res.status(200).json({access_token : access_token})
                     } 
-                } else {
-                    next(401)
-                }
+                } 
             })
             .catch (err => {
                 console.log(err)

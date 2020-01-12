@@ -3,8 +3,9 @@ const User = require('../models/usermodel')
 module.exports = function (req, res, next) {
     let access_token = req.headers.access_token
     console.log('masuk authentication!!!!!!!!!!!!!')
+    console.log(access_token)
     try {
-        console.log(access_token)
+        
         let decoded = jwt.verify(access_token, process.env.SECRET)
         req.currentUserId = decoded.id
         console.log(decoded)

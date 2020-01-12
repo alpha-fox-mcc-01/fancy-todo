@@ -32,11 +32,12 @@ function manualLogin(email, password) {
         })
         .done(data => {
             console.log(data)
-            localStorage.setItem(data.access_token)
+            localStorage.setItem('access_token', data.access_token)
             resolve(data)
         })
         .fail(err => {
             reject(err)
+            console.log('masuk error')
         }) 
     })
 }
@@ -87,4 +88,24 @@ function addTodo(name, due_date, status, userId) {
             reject(err)
         }) 
     })
+}
+
+
+function userTodo(userId) {
+    console.log('masuk userTodo')
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            method: 'GET',
+            url: `http://localhost:3000/todo/${userId}`,
+            headers: {
+                access_token : access_token
+            }
+        })
+        .done(data => {
+            resolve(data)
+        })
+        .fail(err => {
+            reject(err)
+        }) 
+})
 }
