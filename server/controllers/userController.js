@@ -1,5 +1,6 @@
 const User = require('../models/usermodel')
-
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 class userController {
     static addUser(req, res, next) {
         console.log('masuk create')
@@ -60,9 +61,29 @@ class userController {
             })
     }
 
-    // static login(req, res, next) {
-
-    // }
+    static login(req, res, next) {
+        User.findOne({ email : req.body.email})
+            .then (result => {
+                if (result) {
+                    let password = req.body.password
+                    var checkPassword = bcrypt.compareSync(password, result.password)
+                    if (checkPassword) {
+                        const access_token = jwt.sign({
+                            id: result._id,
+                        }, process.env.SECRET)
+                        res.status(200).json({access_token : access_token})
+                    } else {
+                        next(401)
+                    }
+                } else {
+                    next(401)
+                }
+            })
+            .catch (err => {
+                console.log(err)
+                next(500)
+            })
+    }
 }
 
 

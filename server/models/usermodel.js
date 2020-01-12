@@ -12,7 +12,12 @@ var userSchema = new Schema ({
         required: 'Email address is required',
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
-    password: String
+    password: {
+        type: String,
+        required: true,
+        minlength: 4,
+        maxlength: 6
+    } 
 })
 
 
