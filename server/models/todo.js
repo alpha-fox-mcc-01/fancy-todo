@@ -13,9 +13,7 @@ const Todo = mongoose.model('Todo', todoSchema)
 
 module.exports = {
   add(todo, UserId) {
-    // add(todo) { // sementara ga pake req.activeUserId
     const { name, description, status, due_date } = todo
-    // const { name, description, status, due_date, UserId } = todo
     return Todo.create({ name, description, status, due_date, UserId })
   },
 

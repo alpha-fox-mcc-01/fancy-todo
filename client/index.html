@@ -114,13 +114,38 @@
               <input class="form-control" id="inputTodoDesc">
             </div>
             <div class="form-group">
-              <label for="example-date-input" class="col-2 col-form-label">Date</label>
+              <label for="inputDueDate" class="col-2 col-form-label">Due Date</label>
               <input class="form-control" type="date" id="inputDueDate">
             </div>
             <button type="submit" class="btn btn-primary" id="add-todo">Submit</button>
           </form>
         </div>
         <!-- END OF ADD TODO -->
+
+        <!-- EDIT TODO -->
+        <div class="card addcard mx-auto align-items-center rounded" id="edittodocard"
+          style="width: 80%; display: none;">
+          <form id="edittodoform" style="width: 75%;">
+            <div class="card-header">
+              <h5 class="colorwhite">EDIT</h5>
+            </div>
+            <div class=" form-group">
+              <label for="inputEditedName">Todo Name</label>
+              <input type="text" class="form-control" id="inputEditedName">
+            </div>
+            <div class=" form-group">
+              <label for="inputEditedDesc">Description</label>
+              <input class="form-control" id="inputEditedDesc">
+            </div>
+            <div class="form-group">
+              <label for="inputDueEdited" class="col-2 col-form-label">Due Date</label>
+              <input class="form-control" type="date" id="inputDueEdited">
+            </div>
+            <button type="submit" class="btn btn-primary" id="edit-todo">Submit</button>
+          </form>
+        </div>
+        <!-- END OF EDIT TODO -->
+
       </div>
       <div class="card-footer text-muted"></div>
     </div>

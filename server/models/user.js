@@ -17,8 +17,8 @@ const User = mongoose.model('User', userSchema)
 
 module.exports = {
   add(user) {
-    const { email, password } = user
-    return User.create({ email, password })
+    const { email, password, googleLogin } = user
+    return User.create({ email, password, googleLogin })
   },
 
   findOne(email) {

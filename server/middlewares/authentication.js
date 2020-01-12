@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
     try {
       const authenticated = jwt.verify(token, process.env.SECRET)
       if (authenticated) {
-        req.activeUserId = authenticated.id
+        req.activeUserId = authenticated._id
         next()
       }
     } catch (err) {

@@ -21,11 +21,23 @@ const registerUser = (email, password) => {
 }
 
 const addTodo = (name, description, status, due_date, token) => {
-  console.log('add todo')
-  console.log(token)
   return $.ajax({
     method: 'POST',
     url: 'http://localhost:3000/api/todo',
+    data: {
+      name,
+      description,
+      status,
+      due_date
+    },
+    headers: { user_token: token },
+  })
+}
+
+const editTodo = (name, description, status, due_date, token, itemId) => {
+  return $.ajax({
+    method: 'PUT',
+    url: `http://localhost:3000/api/todo/${itemId}`,
     data: {
       name,
       description,
@@ -79,7 +91,7 @@ const dataAppend = (items, token) => {
       </div>`)
 
     $('.delete-button').click(function (event) {
-      console.log(event.target.id)
+      // console.log(event.target.id)
       $.ajax({
         method: 'DELETE',
         url: `http://localhost:3000/api/todo/${event.target.id}`,
@@ -106,6 +118,46 @@ const dataAppend = (items, token) => {
     $('.add-button').click(function (event) {
       $('#todocontainer').hide()
       $('#addtodocard').show()
+    })
+
+    $('.edit-button').click(function (event) {
+      $('#todocontainer').hide()
+      $('#edittodocard').show()
+      const itemId = event.target.id
+      $('#edittodoform').submit(event => {
+        event.preventDefault();
+        const name = $('#inputEditedName').val();
+        const description = $('#inputEditedDesc').val();
+        const due_date = $('#inputDueEdited').val();
+        let status;
+        new Date() > new Date(due_date) ? status = true : status = false
+
+        editTodo(name, description, status, due_date, token, itemId)
+          .done(success => {
+            getData(token)
+              .done(items => {
+                console.log(items)
+                $('#todocontainer').empty()
+                dataAppend(items, token)
+                $('#edittodocard').hide()
+                $('#todocontainer').show()
+              })
+              .fail(err => {
+                showError(err.responseJSON.msg)
+                console.log(err)
+              })
+            $('#alert').hide()
+            $('#login').hide()
+            $('#content').show()
+            // $('#todocontainer').show()
+            $('#addtodocard').hide()
+          })
+
+          .fail(err => {
+            showError(err.responseJSON.msg)
+            console.log(err)
+          })
+      })
     })
   })
 }
@@ -177,6 +229,35 @@ const formProcessing = data => {
   })
 }
 
+function onSignIn(googleUser) {
+  const google_token = googleUser.getAuthResponse().id_token;
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/user/google-auth',
+    data: { google_token }
+  })
+    .done(data => formProcessing(data))
+    .fail(err => {
+      showError(err.responseJSON.msg)
+      console.log(err)
+    })
+}
+
+const signOut = () => {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+}
+
+const toLoginPage = () => {
+  $('#alert').hide()
+  $('#login').show()
+  $('#content').hide()
+}
+
+
+// DOCUMENT PROCESSING
 $(document).ready(function () {
   $('#reg-menu').click(function (event) {
     event.preventDefault()
@@ -186,71 +267,6 @@ $(document).ready(function () {
   })
 
   $('#loginform').submit(event => afterLogin(event))
-
-  // $('#loginform').submit(event => {
-  //   event.preventDefault();
-  //   const email = $('#inputEmail').val();
-  //   const password = $('#inputPassword').val();
-
-  //   loginUser(email, password)
-  //     .done(data => {
-  //       console.log(data.token);
-  //       $('#alert').hide()
-  //       $('#login').hide()
-  //       $('#content').show()
-
-  //       getData(data.token)
-  //         .done(items => {
-  //           console.log(items.length)
-  //           $('#todocontainer').empty()
-  //           dataAppend(items, data.token)
-  //         })
-  //         .fail(err => {
-  //           $('#todocontainer').hide()
-  //           $('#addtodocard').show()
-  //           console.log(err)
-  //         })
-
-
-  //       $('#addtodoform').submit(event => {
-  //         event.preventDefault();
-  //         const name = $('#inputTodoName').val();
-  //         const description = $('#inputTodoDesc').val();
-  //         const due_date = $('#inputDueDate').val();
-  //         let status;
-  //         new Date() > new Date(due_date) ? status = true : status = false
-
-  //         addTodo(name, description, status, due_date, data.token)
-  //           .done(success => {
-  //             console.log(data)
-  //             getData(data.token)
-  //               .done(items => {
-  //                 console.log(items)
-  //                 $('#todocontainer').empty()
-  //                 dataAppend(items, data.token)
-  //                 $('#todocontainer').show()
-  //               })
-  //               .fail(err => {
-  //                 showError(err.responseJSON.msg)
-  //                 console.log(err)
-  //               })
-  //             $('#alert').hide()
-  //             $('#login').hide()
-  //             $('#content').show()
-  //             // $('#todocontainer').show()
-  //             $('#addtodocard').hide()
-  //           })
-  //           .fail(err => {
-  //             showError(err.responseJSON.msg)
-  //             console.log(err)
-  //           })
-  //       })
-  //     })
-  //     .fail(err => {
-  //       showError(err.responseJSON.msg)
-  //       console.log(err)
-  //     })
-  // })
 
   $('#registerform').submit(event => {
     event.preventDefault();
@@ -269,30 +285,3 @@ $(document).ready(function () {
       })
   })
 })
-
-function onSignIn(googleUser) {
-  const google_token = googleUser.getAuthResponse().id_token;
-  $.ajax({
-    method: 'POST',
-    url: 'http://localhost:3000/user/google-auth',
-    data: { google_token }
-  })
-    .done(data => formProcessing(data))
-    .fail(err => {
-      showError(err.responseJSON.msg)
-      console.log(err)
-    })
-}
-
-function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-  });
-}
-
-const toLoginPage = () => {
-  $('#alert').hide()
-  $('#login').show()
-  $('#content').hide()
-}

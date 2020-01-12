@@ -6,8 +6,8 @@ const authorized = require('../middlewares/authorization')
 
 todoRouter.get('/', authenticated, todoController.find)
 todoRouter.post('/', authenticated, todoController.add)
-todoRouter.get('/:todoName', authorized, todoController.findOne)
-todoRouter.delete('/:id', authorized, todoController.deleteOne)
-todoRouter.put('/:id', authorized, todoController.updateOne)
+todoRouter.get('/:todoName', authenticated, authorized, todoController.findOne)
+todoRouter.delete('/:id', authenticated, authorized, todoController.deleteOne)
+todoRouter.put('/:id', authenticated, authorized, todoController.updateOne)
 
 module.exports = todoRouter
