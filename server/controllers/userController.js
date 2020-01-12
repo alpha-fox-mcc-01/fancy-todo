@@ -32,7 +32,8 @@ module.exports = {
   },
 
   login(req, res) {
-    const { email, password } = req.body
+    const { email } = req.query
+    const password = req.query.password || 'null'
     User.findOne(email)
       .then(user => {
         if (!user) {
@@ -66,4 +67,40 @@ module.exports = {
           .json({ msg: err.message })
       })
   }
+
+  // login(req, res) {
+  //   const { email, password } = req.body
+  //   User.findOne(email)
+  //     .then(user => {
+  //       if (!user) {
+  //         res
+  //           .status(409)
+  //           .json({ msg: 'Email isn\'t registered' })
+  //       }
+  //       else {
+  //         const valid = bcryptjs.compareSync(password, user.password)
+  //         if (valid) {
+  //           const token = jwt.sign({ _id: user._id }, process.env.SECRET)
+  //           console.log(token)
+  //           req.headers.user_token = token
+  //           req.activeUserId = user._id
+  //           // req.body.UserId = user._id
+  //           console.log(req.body.UserId)
+  //           res
+  //             .status(200)
+  //             .json({ token })
+  //         } else {
+  //           res
+  //             .status(403)
+  //             .json({ msg: 'Password invalid' })
+  //         }
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //       res
+  //         .status(500)
+  //         .json({ msg: err.message })
+  //     })
+  // }
 }
