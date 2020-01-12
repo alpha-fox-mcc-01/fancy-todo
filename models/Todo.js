@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
+const Schema = mongoose.Schema
 
-const todoSchema = new mongoose.Schema(
+const todoSchema = new Schema(
 	{
 		title: String,
 		description: String,
@@ -21,6 +21,10 @@ const todoSchema = new mongoose.Schema(
 		category: String,
 		isShoppingList: {
 			type: Boolean
+		},
+		userId: {
+			type: Schema.Types.ObjectId,
+			ref: 'User'
 		}
 	}
 )

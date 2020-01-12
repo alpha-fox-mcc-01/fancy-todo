@@ -68,6 +68,7 @@
 							<a href="#" onclick="signOut();">Sign out</a>
 						</div>
 						<hr class="my-2">
+						<br>
 						<div class="d-flex justify-content-end">
 							<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-todo"><i
 									class="fas fa-plus-circle"></i> Create New List</button>
@@ -100,6 +101,10 @@
 													<label>Tags: (separate each tag with commas)</label>
 													<textarea class="form-control" id="textinput-tags-update-idTodo" cols="30"
 														rows="5"></textarea>
+												</div>
+												<div class="custom-control custom-checkbox">
+													<input type="checkbox" class="custom-control-input" id="isShoppingList">
+													<label class="custom-control-label" for="isShoppingList">This is a shopping list</label>
 												</div>
 											</form>
 										</div>
@@ -148,7 +153,7 @@
 											</div>
 											<div class="row">
 												<div class="cursor-on-hover col-md-1 justify-content-center align-self-center">
-													<i class="far fa-check-circle fa-3x text-success"></i>
+													<i class="checkbox far fa-check-circle fa-3x"></i>
 												</div>
 												<div class="col-md-11 justify-content-center align-self-center">
 													<p class="mb-1 p-2">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget
@@ -253,7 +258,7 @@
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
 
-
+	<script src="./js/ajaxCalls/getMyTodo.js"></script>
 	<!-- JS Selfmade -->
 	<script src="./js/googleAuth/onSignIn.js"></script>
 	<script src="./js/googleAuth/onSignOut.js"></script>

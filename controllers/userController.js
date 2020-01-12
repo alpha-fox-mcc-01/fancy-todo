@@ -1,11 +1,69 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { OAuth2Client } = require('google-auth-library');
 
 const User = require('../models/User')
 
 class UserController {
 	static googleAuth(req, res, next) {
-		res.send('ok')
+		const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+		async function verifyGoogleToken() {
+			const ticket = await client.verifyIdToken({
+				idToken: req.headers.google_token,
+				audience: process.env.GOOGLE_CLIENT_ID
+			})
+			const payload = ticket.getPayload()
+
+			if (payload) {
+				User
+					.findOne({ email: payload.email })
+					.then(result => {
+						if (result) {
+							const jwt_token = jwt.sign({ id: result._id }, process.env.JWT_PRIVATEKEY)
+							res.status(201).json(jwt_token)
+						} else {
+							console.log('create new user with email', payload.email);
+							User
+								.create({
+									email: payload.email,
+									password: payload.at_hash,
+									fullname: payload.name,
+									todos: []
+								})
+								.then(createdUser => {
+									const jwt_token = jwt.sign({ id: createdUser._id }, process.env.JWT_PRIVATEKEY)
+									res.status(201).json(jwt_token)
+								})
+								.catch(err => {
+									next({
+										code: 500,
+										msg: 'User creation failed, check google API'
+									})
+								})
+						}
+					})
+					.catch(err => {
+						next({
+							code: 500,
+							msg: 'Err, cannot fetch User',
+							details: err
+						})
+					})
+			} else {
+				next({
+					code: 500,
+					msg: 'Bad Google Token'
+				})
+			}
+		}
+
+		verifyGoogleToken().catch(err => {
+			console.log(err)
+			next({
+				code: 400,
+				err
+			})
+		})
 	}
 
 	static signup(req, res, next) {
@@ -24,6 +82,36 @@ class UserController {
 			.catch(err => {
 				next({
 					code: 400,
+					err
+				})
+			})
+	}
+
+	static signin(req, res, next) {
+		User
+			.findOne({ email: req.body.email })
+			.then(user => {
+				if (user) {
+					const valid = bcrypt.compareSync(req.body.password, user.password)
+					if (valid) {
+						const jwt_token = jwt.sign({ id: user._id }, process.env.JWT_PRIVATEKEY)
+						res.status(200).json({ access_token: jwt_token })
+					} else {
+						next({
+							code: 401,
+							msg: 'wrong username or password'
+						})
+					}
+				} else {
+					next({
+						code: 401,
+						msg: 'wrong username or password'
+					})
+				}
+			})
+			.catch(err => {
+				next({
+					code: 500,
 					err
 				})
 			})
@@ -92,32 +180,16 @@ class UserController {
 			})
 	}
 
-	static signin(req, res, next) {
-		User
-			.findOne({ email: req.body.email })
-			.then(user => {
-				if (user) {
-					const valid = bcrypt.compareSync(req.body.password, user.password)
-					if (valid) {
-						const jwt_token = jwt.sign({ id: user._id }, process.env.JWT_PRIVATEKEY)
-						res.status(200).json({ access_token: jwt_token })
-					} else {
-						next({
-							code: 401,
-							msg: 'wrong username or password'
-						})
-					}
-				} else {
-					next({
-						code: 401,
-						msg: 'wrong username or password'
-					})
-				}
+	static getMyTodo(req, res, next) {
+		User.findById(req.authenticatedUser, [ 'tags' ])
+			.populate('todos')
+			.then(result => {
+				res.status(200).json(result)
 			})
 			.catch(err => {
 				next({
 					code: 500,
-					err
+					msg: err
 				})
 			})
 	}

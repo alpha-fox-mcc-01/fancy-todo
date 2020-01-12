@@ -9,21 +9,23 @@ const userSchema = new Schema(
 		email: {
 			type: String,
 			lowercase: true,
-			match: [emailRegex, 'Please enter Valid Email Address']
+			match: [ emailRegex, 'Please enter Valid Email Address' ]
 		},
 		password: String,
 		fullname: String,
-		todoID: {
-			type: Schema.Types.ObjectId,
-			ref: 'Todo'
-		}
+		todos: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'Todo'
+			}
+		]
 	}
 )
 
-userSchema.pre('save', function(next){
+userSchema.pre('save', function (next) {
 	console.log('checking existing user');
-	mongoose.models['User']
-		.findOne({email: this.email})
+	mongoose.models[ 'User' ]
+		.findOne({ email: this.email })
 		.then(user => {
 			if (user) {
 				next({

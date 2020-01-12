@@ -3,14 +3,19 @@ function onSignIn(googleUser) {
 	$.ajax({
 		method: 'POST',
 		url: 'http://localhost:3000/users/gAuth',
-		data: {
-			google_token
-		}
+		headers: { "google_token": google_token }
 	})
 		.done(result => {
-			console.log('ini result');
+			localStorage.setItem('access_token', result)
 			// $('#mainSection').show()
 			// $('#loginSection').hide()
+
+			// fetch my todo
+			getMyTodo()
+
+			// put access_token to localStorage
 		})
-		.fail()
+		.fail(err => {
+			console.log(err)
+		})
 }

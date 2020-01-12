@@ -11,3 +11,14 @@ html, body {
 .cursor-on-hover {
   cursor: pointer
 }
+
+/* darken checkbox on hover */
+/* .checkbox {
+  position:relative; 
+  border:1px solid black; 
+  width:200px; 
+  height:200px;}
+.checkbox {max-width:100%; max-height:100%;} */
+.checkbox:hover:after {
+  color: aqua;
+}
