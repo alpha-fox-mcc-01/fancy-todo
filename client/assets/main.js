@@ -12,6 +12,7 @@ function onSignIn(googleUser) {
       console.log(result)
       toastr.success('Login successful!')
       $("#login").hide()
+      $("#mainpage").show()
       localStorage.setItem('access_token', result.access_token)
     })
     .fail(err => {
@@ -36,7 +37,6 @@ function onSignIn(googleUser) {
     // })
 
     $("#signin").click(event => {
-      $("#login").hide()
       let email = $("#email")
       console.log('masuk')
       let password = $("#password")
@@ -45,6 +45,8 @@ function onSignIn(googleUser) {
               .then(result => {
                 console.log(result, 'ini result')
                 toastr.success('Login successful!')
+                $("#login").hide()
+                $("#mainpage").show()
               })
               .catch(err => {
                 console.log(err)
@@ -76,10 +78,5 @@ function onSignIn(googleUser) {
       $("#login").show()
     })
 
-    
-
-
-    
-    // jQuery methods go here...
   
   })
