@@ -26,7 +26,7 @@ module.exports = function (req, res, next) {
             })
 
     } catch(err) {
-        console.log('masuk sini')
+        // console.log('masuk sini')
         next(500)
     }
 }

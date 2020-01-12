@@ -1,6 +1,6 @@
 const Todo = require('../models/todomodel')
 const instance = require('../helper/axiosInstance')
-
+let dailyQuote
 class todoController {
     static addTodo(req, res, next) {
 
@@ -22,7 +22,7 @@ class todoController {
 
     static getList(req, res, next) {
         console.log('masuk controller todo')
-        let dailyQuote
+        
         instance.get('/advice')
             .then( quote => {
                 dailyQuote = quote.data
@@ -39,16 +39,21 @@ class todoController {
     }
 
     static getTodoUser(req, res, next) {
-        console.log(req.params.id, 'paramsnya bener ga?')
-        Todo.find({userId: req.params.id})
-            .then(result => {
-                console.log('masuk controller')
-                res.status(200).json({result: result})
-            })
-            .catch(err => {
-                console.log(err)
-                next(500)
-            })
+        // console.log(req.params.id, 'paramsnya bener ga?')
+        let dailyQuote
+        instance.get('/advice')
+                .then(quote => {
+                    dailyQuote = quote.data
+                    return Todo.find({userId: req.params.id})
+                })
+                .then(result => {
+                    // console.log('masuk controller')
+                    res.status(200).json({result : result, qotd: dailyQuote.slip.advice})
+                })
+                .catch(err => {
+                    console.log(err)
+                    next(500)
+                })
 
     }
 
@@ -66,16 +71,12 @@ class todoController {
     }
 
     static updateStatus(req, res, next) {
+        console.log(req.body.status, 'status di controller')
         Todo.updateOne({ _id : req.params.id}, {
             status: req.body.status
         })
             .then(result => {
-                if(result.nModified == 1) {
                     res.status(200).json({message : 'To-do successfully updated'})
-                } else {
-                    next(500)
-                }
-                
             })
             .catch(err => {
                 next(500)

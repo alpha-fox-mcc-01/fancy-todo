@@ -28,6 +28,9 @@ function manualLogin(email, password) {
             data: {
                 email : email,
                 password: password
+            },
+            headers: {
+                access_token : access_token
             }
         })
         .done(data => {
@@ -108,4 +111,44 @@ function userTodo(userId) {
             reject(err)
         }) 
 })
+}
+
+function updateTodo(id, status) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            method: 'PATCH',
+            url: `http://localhost:3000/todo/${id}`,
+            headers: {
+                access_token : access_token
+            },
+            data : {
+                status: status
+            }
+        })
+        .done(data => {
+            resolve(data)
+        })
+        .catch(err => {
+            reject(err)
+        })
+    })
+}
+
+
+function deleteTodo(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            method: 'DELETE',
+            url: `http://localhost:3000/todo/${id}`,
+            headers: {
+                access_token : access_token
+            }
+        })
+        .done(data => {
+            resolve(data)
+        })
+        .catch(err => {
+            reject(err)
+        })
+    })
 }
