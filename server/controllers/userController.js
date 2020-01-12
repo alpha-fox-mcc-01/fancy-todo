@@ -11,6 +11,7 @@ class userController {
             password: req.body.password
         })
             .then(data => {
+                console.log('berhasil create')
                 res.status(201).json({message: 'User successfully registered'})
             })
             .catch(err => {

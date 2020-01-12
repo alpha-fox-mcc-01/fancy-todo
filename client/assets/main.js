@@ -11,6 +11,7 @@ function onSignIn(googleUser) {
     .done(result => {
       console.log(result)
       toastr.success('Login successful!')
+      $("#login").hide()
       localStorage.setItem('access_token', result.access_token)
     })
     .fail(err => {
@@ -50,7 +51,35 @@ function onSignIn(googleUser) {
                 toastr.warning('Unsuccessful login. Please check your email/password')
               })
     })
+
+    $("#toregister").click(event => {
+      $("#login").hide()
+      $("#register").show()
+    })
+
+    $("#create").click(event => {
+      let username = $("#newusername")
+      let email = $("#newemail")
+      let password = $("#newpassword")
+      manualSignup(username.val(), email.val(), password.val())
+                  .then(data => {
+                    console.log(data)
+                    toastr.success('You are successfully registered!')
+                  })
+                  .catch(err => {
+                    toastr.warning('Registration failed')
+                  })
+    })
+
+    $("#loginpage").click(event => {
+      $("#register").hide()
+      $("#login").show()
+    })
+
+    
+
+
     
     // jQuery methods go here...
   
-  });
+  })

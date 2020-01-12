@@ -39,3 +39,25 @@ function manualLogin(email, password) {
         }) 
     })
 }
+
+
+function manualSignup(username, email, password) {
+    return new Promise( (resolve, reject) => {
+        $.ajax({
+            method: 'POST',
+            url: "http://localhost:3000/user/register",
+            data: {
+                username: username,
+                email : email,
+                password: password
+            }
+        })
+        .done(data => {
+            console.log(data)
+            resolve(data)
+        })
+        .fail(err => {
+            reject(err)
+        }) 
+    })
+}
