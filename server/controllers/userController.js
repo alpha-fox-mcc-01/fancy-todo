@@ -71,7 +71,6 @@ module.exports = {
   },
 
   googleSignIn(req, res) {
-    let payloadData
     let email
 
     client.verifyIdToken({
