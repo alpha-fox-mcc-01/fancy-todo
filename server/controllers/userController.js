@@ -68,6 +68,34 @@ module.exports = {
       })
   }
 
+  // register(req, res) {
+  //   const { email, password } = req.body
+  //   User.findOne(email)
+  //     .then(found => {
+  //       if (!found) {
+  //         return User.add({ email, password })
+  //       }
+  //       else {
+  //         res
+  //           .status(409)
+  //           .json({ msg: 'Email address is already used, please use another' })
+  //       }
+  //     })
+  //     .then(user => {
+  //       const token = jwt.sign({ _id: user._id }, process.env.SECRET)
+  //       console.log(token)
+  //       res
+  //         .status(200)
+  //         .json({ token })
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //       res
+  //         .status(500)
+  //         .json({ msg: err.message })
+  //     })
+  // },
+
   // login(req, res) {
   //   const { email, password } = req.body
   //   User.findOne(email)
