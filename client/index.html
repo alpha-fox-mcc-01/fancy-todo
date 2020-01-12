@@ -8,32 +8,8 @@
   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles/style.css">
   <title>Document</title>
-  <style>
-    body {
-      width: 100%;
-      height: 100vh;
-      background-color: grey;
-    }
-
-    .container {
-      margin-top: 5vh;
-      width: 70%;
-      height: 70%;
-    }
-
-    .outercard {
-      width: 100%;
-      height: 100%;
-    }
-
-    .logincard {
-      width: 50vh;
-      margin-top: 10vh;
-      background-color: #222222;
-      color: white;
-    }
-  </style>
 </head>
 
 <body>
@@ -62,7 +38,7 @@
     <div class="alert alert-danger" role="alert" id="alert" style="display: none">
       <!-- <span>Invalid</span> -->
     </div>
-    <div class=" card outercard text-center mx-auto rounded" id="login" style="background-color: blue;">
+    <div class=" card outercard text-center mx-auto rounded" id="login">
       <div class="card-header"></div>
       <div class="card-body">
 
@@ -85,15 +61,15 @@
 
         <!-- REGISTER FORM -->
         <div class="card logincard mx-auto align-items-center rounded" id="registercard" style="display: none;">
-          <form>
+          <form id="registerform">
             <div class=" form-group">
-              <label for="inputEmail">Email address</label>
-              <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+              <label for="inputEmailRegister">Email address</label>
+              <input type="email" class="form-control" id="inputEmailRegister" aria-describedby="emailHelp">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-              <label for="inputPassword">Password</label>
-              <input type="password" class="form-control" id="inputPassword">
+              <label for="inputPasswordRegister">Password</label>
+              <input type="password" class="form-control" id="inputPasswordRegister">
             </div>
             <button type="submit" class="btn btn-primary" id="register-button">Submit</button>
           </form>
@@ -104,14 +80,43 @@
       <div class="card-footer text-muted"></div>
     </div>
 
-    <div class="card outercard text-center mx-auto rounded" id="content" style="background-color: blue; display:none">
+    <div class="card outercard text-center mx-auto rounded" id="content" style="display: none;">
       <div class="card-header"></div>
-      <div class="card-body todocontainer" id="todocontainer" style="overflow: auto;">
 
+      <div class="card-body" style="overflow: auto;">
+
+        <!-- TODO LIST -->
+        <div class="todocontainer" id="todocontainer">
+
+        </div>
+        <!-- END OF TODO LIST -->
+
+        <!-- ADD TODO -->
+        <div class="card addcard mx-auto align-items-center rounded" id="addtodocard"
+          style="width: 80%; display: none;">
+          <form id="addtodoform" style="width: 75%;">
+            <div class="card-header">
+              <h5 class="colorwhite">ADD TODO</h5>
+            </div>
+            <div class=" form-group">
+              <label for="inputTodoName">Todo Name</label>
+              <input type="text" class="form-control" id="inputTodoName">
+            </div>
+            <div class=" form-group">
+              <label for="inputTodoDesc">Description</label>
+              <input class="form-control" id="inputTodoDesc">
+            </div>
+            <div class="form-group">
+              <label for="example-date-input" class="col-2 col-form-label">Date</label>
+              <input class="form-control" type="date" id="inputDueDate">
+            </div>
+            <button type="submit" class="btn btn-primary" id="add-todo">Submit</button>
+          </form>
+        </div>
+        <!-- END OF ADD TODO -->
       </div>
       <div class="card-footer text-muted"></div>
     </div>
-
   </div>
 
 
@@ -123,7 +128,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script> -->
-  <script src="./script/main.js"></script>
+  <script src="./scripts/main.js"></script>
 </body>
 
 </html>
