@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles/style.css">
+  <meta name="google-signin-client_id"
+    content="176024940848-brhr4dp5uvhpt3pckpog64m2q30mjf3n.apps.googleusercontent.com">
+  <title>Fancy Todo</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="navbar-nav mr-auto">
+        <!-- link masih kosong -->
+      </div>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <div style="margin-left: 2rem;">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="btn btn-primary" style="width: 120px; height: 35px; line-height: 10px;" onclick="toLoginPage()">
+          <a style="color: white" href="#" onclick="signOut();">Sign out</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="alert alert-danger" role="alert" id="alert" style="display: none">
+      <!-- <span> ALERT CONTENT </span> -->
+    </div>
+    <div class=" card outercard text-center mx-auto rounded" id="login">
+      <div class="card-header"></div>
+      <div class="card-body">
+
+        <!-- LOGIN FORM -->
+        <div class="card logincard mx-auto align-items-center rounded" id="logincard">
+          <form id="loginform">
+            <div class=" form-group">
+              <label for="inputEmail">Email address</label>
+              <input type="email" class="form-control" id="inputEmail">
+            </div>
+            <div class="form-group">
+              <label for="inputPassword">Password</label>
+              <input type="password" class="form-control" id="inputPassword">
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary" id="login-button">Submit</button>
+              <button id="reg-menu" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+        </div>
+        <!-- END OF LOGIN FORM -->
+
+        <!-- REGISTER FORM -->
+        <div class="card logincard mx-auto align-items-center rounded" id="registercard" style="display: none;">
+          <form id="registerform">
+            <div class=" form-group">
+              <label for="inputEmailRegister">Email address</label>
+              <input type="email" class="form-control" id="inputEmailRegister" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="inputPasswordRegister">Password</label>
+              <input type="password" class="form-control" id="inputPasswordRegister">
+            </div>
+            <button type="submit" class="btn btn-primary" id="register-button">Submit</button>
+          </form>
+        </div>
+        <!-- END OF REGISTER FORM -->
+
+      </div>
+      <div class="card-footer text-muted"></div>
+    </div>
+
+    <div class="card outercard text-center mx-auto rounded" id="content" style="display: none;">
+      <div class="card-header"></div>
+
+      <div class="card-body" style="overflow: auto;">
+
+        <!-- TODO LIST -->
+        <div class="todocontainer" id="todocontainer">
+
+        </div>
+        <!-- END OF TODO LIST -->
+
+        <!-- ADD TODO -->
+        <div class="card addcard mx-auto align-items-center rounded" id="addtodocard"
+          style="width: 80%; display: none;">
+          <form id="addtodoform" style="width: 75%;">
+            <div class="card-header">
+              <h5 class="colorwhite">ADD TODO</h5>
+            </div>
+            <div class=" form-group">
+              <label for="inputTodoName">Todo Name</label>
+              <input type="text" class="form-control" id="inputTodoName">
+            </div>
+            <div class=" form-group">
+              <label for="inputTodoDesc">Description</label>
+              <input class="form-control" id="inputTodoDesc">
+            </div>
+            <div class="form-group">
+              <label for="inputDueDate" class="col-2 col-form-label">Due Date</label>
+              <input class="form-control" type="date" id="inputDueDate">
+            </div>
+            <button type="submit" class="btn btn-primary" id="add-todo">Submit</button>
+          </form>
+        </div>
+        <!-- END OF ADD TODO -->
+
+        <!-- EDIT TODO -->
+        <div class="card addcard mx-auto align-items-center rounded" id="edittodocard"
+          style="width: 80%; display: none;">
+          <form id="edittodoform" style="width: 75%;">
+            <div class="card-header">
+              <h5 class="colorwhite">EDIT</h5>
+            </div>
+            <div class=" form-group">
+              <label for="inputEditedName">Todo Name</label>
+              <input type="text" class="form-control" id="inputEditedName">
+            </div>
+            <div class=" form-group">
+              <label for="inputEditedDesc">Description</label>
+              <input class="form-control" id="inputEditedDesc">
+            </div>
+            <div class="form-group">
+              <label for="inputDueEdited" class="col-2 col-form-label">Due Date</label>
+              <input class="form-control" type="date" id="inputDueEdited">
+            </div>
+            <button type="submit" class="btn btn-primary" id="edit-todo">Submit</button>
+          </form>
+        </div>
+        <!-- END OF EDIT TODO -->
+
+      </div>
+      <div class="card-footer text-muted"></div>
+    </div>
+  </div>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script> -->
+  <script src="./scripts/main.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+</body>
+
+</html>
