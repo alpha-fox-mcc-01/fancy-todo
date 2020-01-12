@@ -3,7 +3,9 @@ const User = require('../models/user');
 
 class TodoController {
   static addTodo(req, res, next) {
-    const {name, description, status, due_date, userId} = req.body;
+    const {name, description, status, due_date} = req.body;
+    console.log(req.currentUserId)
+    const userId = req.currentUserId
     let createdTodo
     Todo.create({
       name,
@@ -15,19 +17,12 @@ class TodoController {
       .then(todo => {
         createdTodo = todo;
         console.log(todo)
-        return User.findOneAndUpdate({
-          _id: todo.userId
-        }, {
-          $push: {
-            todoIds: ObjectId(todo._id)
-          }
-        }, {
-          upsert: true
+        return Todo.find({
+          userId
         })
       })
-      .then(user => {
-        console.log(user)
-        res.status(201).json({createdTodo, user});
+      .then(todos => {
+        res.status(201).json({createdTodo, todos});
       })
       .catch(next)
   }

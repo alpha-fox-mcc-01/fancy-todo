@@ -1,8 +1,10 @@
 const User = require('../models/user');
+const Todo = require('../models/todo');
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const ObjectId = (require('mongoose').Types.ObjectId);
 
 class UserController {
   static register(req, res, next) {
@@ -50,12 +52,16 @@ class UserController {
       email
     })
       .then(user => {
-        const verified = bcrypt.compareSync(password, user.password);
-        if(verified) {
-          const token = jwt.sign({_id: user._id}, process.env.SECRET);
-          res.status(200).json({token})
+        if(user) {
+          const verified = bcrypt.compareSync(password, user.password);
+          if(verified) {
+            const token = jwt.sign({_id: user._id}, process.env.SECRET);
+            res.status(200).json({token})
+          } else {
+            res.status(400).json({msg: 'Email or password wrong'});
+          }
         } else {
-          res.status(401).json({msg: 'unauthorized'})
+          res.status(400).json({msg: 'Email or password wrong'});
         }
       })
       .catch(next)
@@ -63,6 +69,7 @@ class UserController {
 
   static googleLogin(req, res, next) {
     let ticketPayload
+    let token
     client.verifyIdToken({
       idToken: req.body.google_token,
       audience: process.env.CLIENT_ID
@@ -85,8 +92,15 @@ class UserController {
         }
       })
       .then(user => {
-        const token = jwt.sign({_id : user._id}, process.env.SECRET);
-        res.status(201).json({token})
+        token = jwt.sign({_id : user._id}, process.env.SECRET);
+        console.log(user)
+        return Todo.find({
+          userId: user._id
+        })
+      })
+      .then(todos => {
+        console.log(todos)
+        res.status(201).json({token, todos})
       })
       .catch(next)
   }
