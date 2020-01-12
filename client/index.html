@@ -9,7 +9,9 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css">
   <link rel="stylesheet" href="./styles/style.css">
-  <title>Document</title>
+  <meta name="google-signin-client_id"
+    content="176024940848-brhr4dp5uvhpt3pckpog64m2q30mjf3n.apps.googleusercontent.com">
+  <title>Fancy Todo</title>
 </head>
 
 <body>
@@ -22,21 +24,24 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="navbar-nav mr-auto">
-        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="#">Features</a>
-        <a class="nav-item nav-link" href="#">Pricing</a>
-        <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <!-- link masih kosong -->
       </div>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
+      <div style="margin-left: 2rem;">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="btn btn-primary" style="width: 120px; height: 35px; line-height: 10px;" onclick="toLoginPage()">
+          <a style="color: white" href="#" onclick="signOut();">Sign out</a>
+        </div>
+      </div>
     </div>
   </nav>
 
   <div class="container">
     <div class="alert alert-danger" role="alert" id="alert" style="display: none">
-      <!-- <span>Invalid</span> -->
+      <!-- <span> ALERT CONTENT </span> -->
     </div>
     <div class=" card outercard text-center mx-auto rounded" id="login">
       <div class="card-header"></div>
@@ -53,8 +58,10 @@
               <label for="inputPassword">Password</label>
               <input type="password" class="form-control" id="inputPassword">
             </div>
-            <button type="submit" class="btn btn-primary" id="login-button">Submit</button>
-            <button id="reg-menu" class="btn btn-primary">Register</button>
+            <div>
+              <button type="submit" class="btn btn-primary" id="login-button">Submit</button>
+              <button id="reg-menu" class="btn btn-primary">Register</button>
+            </div>
           </form>
         </div>
         <!-- END OF LOGIN FORM -->
@@ -129,6 +136,7 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script> -->
   <script src="./scripts/main.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
 </html>

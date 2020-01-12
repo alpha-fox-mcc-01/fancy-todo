@@ -1,6 +1,6 @@
 const loginUser = (email, password) => {
   return $.ajax({
-    method: 'GET',
+    method: 'POST',
     url: 'http://localhost:3000/user/login',
     data: {
       email,
@@ -32,7 +32,7 @@ const addTodo = (name, description, status, due_date, token) => {
       status,
       due_date
     },
-    headers: { user_token: token }
+    headers: { user_token: token },
   })
 }
 
@@ -110,6 +110,73 @@ const dataAppend = (items, token) => {
   })
 }
 
+const afterLogin = event => {
+  event.preventDefault();
+  const email = $('#inputEmail').val();
+  const password = $('#inputPassword').val();
+
+  loginUser(email, password)
+    .done(data => formProcessing(data))
+    .fail(err => {
+      showError(err.responseJSON.msg)
+      console.log(err)
+    })
+}
+
+const formProcessing = data => {
+  console.log(data.token);
+  $('#alert').hide()
+  $('#login').hide()
+  $('#content').show()
+
+  getData(data.token)
+    .done(items => {
+      console.log(items.length)
+      $('#todocontainer').empty()
+      dataAppend(items, data.token)
+    })
+    .fail(err => {
+      $('#todocontainer').hide()
+      $('#addtodocard').show()
+      console.log(err)
+    })
+
+
+  $('#addtodoform').submit(event => {
+    event.preventDefault();
+    const name = $('#inputTodoName').val();
+    const description = $('#inputTodoDesc').val();
+    const due_date = $('#inputDueDate').val();
+    let status;
+    new Date() > new Date(due_date) ? status = true : status = false
+
+    addTodo(name, description, status, due_date, data.token)
+      .done(success => {
+        console.log(data)
+        getData(data.token)
+          .done(items => {
+            console.log(items)
+            $('#todocontainer').empty()
+            dataAppend(items, data.token)
+            $('#todocontainer').show()
+          })
+          .fail(err => {
+            showError(err.responseJSON.msg)
+            console.log(err)
+          })
+        $('#alert').hide()
+        $('#login').hide()
+        $('#content').show()
+        // $('#todocontainer').show()
+        $('#addtodocard').hide()
+      })
+      .fail(err => {
+        showError(err.responseJSON.msg)
+        console.log(err)
+      })
+  })
+}
+
 $(document).ready(function () {
   $('#reg-menu').click(function (event) {
     event.preventDefault()
@@ -118,94 +185,72 @@ $(document).ready(function () {
     $('#registercard').show()
   })
 
-  $('#loginform').submit(event => {
-    event.preventDefault();
-    const email = $('#inputEmail').val();
-    const password = $('#inputPassword').val();
+  $('#loginform').submit(event => afterLogin(event))
 
-    loginUser(email, password)
-      .done(data => {
-        console.log(data.token);
-        $('#alert').hide()
-        $('#login').hide()
-        $('#content').show()
+  // $('#loginform').submit(event => {
+  //   event.preventDefault();
+  //   const email = $('#inputEmail').val();
+  //   const password = $('#inputPassword').val();
 
-        getData(data.token)
-          .done(items => {
-            console.log(items.length)
-            $('#todocontainer').empty()
-            dataAppend(items, data.token)
-          })
-          .fail(err => {
-            $('#todocontainer').hide()
-            $('#addtodocard').show()
-            console.log(err)
-          })
+  //   loginUser(email, password)
+  //     .done(data => {
+  //       console.log(data.token);
+  //       $('#alert').hide()
+  //       $('#login').hide()
+  //       $('#content').show()
 
-
-        $('#addtodoform').submit(event => {
-          event.preventDefault();
-          const name = $('#inputTodoName').val();
-          const description = $('#inputTodoDesc').val();
-          const due_date = $('#inputDueDate').val();
-          let status;
-          new Date() > new Date(due_date) ? status = false : status = true
-
-          addTodo(name, description, status, due_date, data.token)
-            .done(success => {
-              console.log(data)
-              getData(data.token)
-                .done(items => {
-                  console.log(items)
-                  $('#todocontainer').empty()
-                  dataAppend(items, data.token)
-                  $('#todocontainer').show()
-                })
-                .fail(err => {
-                  showError(err.responseJSON.msg)
-                  console.log(err)
-                })
-              $('#alert').hide()
-              $('#login').hide()
-              $('#content').show()
-              // $('#todocontainer').show()
-              $('#addtodocard').hide()
-            })
-            .fail(err => {
-              showError(err.responseJSON.msg)
-              console.log(err)
-            })
-        })
-
-        // $('#addtodoform').submit(event => {
-        //   event.preventDefault();
-        //   const name = $('#inputTodoName').val();
-        //   const description = $('#inputTodoDesc').val();
-        //   const due_date = $('#inputDueDate').val();
-        //   let status;
-        //   new Date() > new Date(due_date) ? status = false : status = true
-
-        //   addTodo(name, description, status, due_date, data.token)
-        //     .done(data => {
-        //       $('#alert').hide()
-        //       $('#login').hide()
-        //       $('#content').show()
-        //       $('#todocontainer').show()
-        //       $('#addtodocard').hide()
-        //     })
-        //     .fail(err => {
-        //       showError(err.responseJSON.msg)
-        //       console.log(err)
-        //     })
-        // })
+  //       getData(data.token)
+  //         .done(items => {
+  //           console.log(items.length)
+  //           $('#todocontainer').empty()
+  //           dataAppend(items, data.token)
+  //         })
+  //         .fail(err => {
+  //           $('#todocontainer').hide()
+  //           $('#addtodocard').show()
+  //           console.log(err)
+  //         })
 
 
-      })
-      .fail(err => {
-        showError(err.responseJSON.msg)
-        console.log(err)
-      })
-  })
+  //       $('#addtodoform').submit(event => {
+  //         event.preventDefault();
+  //         const name = $('#inputTodoName').val();
+  //         const description = $('#inputTodoDesc').val();
+  //         const due_date = $('#inputDueDate').val();
+  //         let status;
+  //         new Date() > new Date(due_date) ? status = true : status = false
+
+  //         addTodo(name, description, status, due_date, data.token)
+  //           .done(success => {
+  //             console.log(data)
+  //             getData(data.token)
+  //               .done(items => {
+  //                 console.log(items)
+  //                 $('#todocontainer').empty()
+  //                 dataAppend(items, data.token)
+  //                 $('#todocontainer').show()
+  //               })
+  //               .fail(err => {
+  //                 showError(err.responseJSON.msg)
+  //                 console.log(err)
+  //               })
+  //             $('#alert').hide()
+  //             $('#login').hide()
+  //             $('#content').show()
+  //             // $('#todocontainer').show()
+  //             $('#addtodocard').hide()
+  //           })
+  //           .fail(err => {
+  //             showError(err.responseJSON.msg)
+  //             console.log(err)
+  //           })
+  //       })
+  //     })
+  //     .fail(err => {
+  //       showError(err.responseJSON.msg)
+  //       console.log(err)
+  //     })
+  // })
 
   $('#registerform').submit(event => {
     event.preventDefault();
@@ -224,3 +269,30 @@ $(document).ready(function () {
       })
   })
 })
+
+function onSignIn(googleUser) {
+  const google_token = googleUser.getAuthResponse().id_token;
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/user/google-auth',
+    data: { google_token }
+  })
+    .done(data => formProcessing(data))
+    .fail(err => {
+      showError(err.responseJSON.msg)
+      console.log(err)
+    })
+}
+
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+}
+
+const toLoginPage = () => {
+  $('#alert').hide()
+  $('#login').show()
+  $('#content').hide()
+}
