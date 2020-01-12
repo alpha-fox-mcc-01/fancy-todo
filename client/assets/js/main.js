@@ -1,9 +1,7 @@
-function updateCard(id) {
+function updateCard() {
   var x = document.getElementById("addtodo");
   var y = document.getElementById("updatetodo");
 
-  localStorage.setItem('put_id', val)
-  
   if (x.style.display === "none") {
     x.style.display = "block";
     y.style.display = "none";
@@ -55,7 +53,7 @@ function onSignIn(googleUser) {
         }
       })
       .done(feed=>{
-        console.log(feed.data.todo)
+        // console.log(feed.data.todo)
         let todos = feed.data.todo
 
         $.each(todos, function (index, val) {
@@ -67,9 +65,9 @@ function onSignIn(googleUser) {
               <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
               <p class="card-text">${val.description}</p>
               <h6>duedate: ${val.duedate}</h6>
-              <h6>${val.status}</h6>
-              <button class="btn btn-warning" onclick="updateCard(${val._id})">update</button>
-              <button class="btn btn-danger">delete</button>            
+              <h6>Status: ${val.status}</h6>
+              <button class="btn btn-warning" onclick="updateCard()">update</button>
+              <button class="btn btn-danger" id="${val._id}">delete</button>            
             </div>
           </div>
 
@@ -97,8 +95,6 @@ function signOut() {
 }
 
 $(document).ready(function () {
-
-
 
   $('#addtodo').submit((event) => {
     event.preventDefault();
@@ -135,41 +131,28 @@ $(document).ready(function () {
     })
   });
 
-  $('#updatetodo').submit((event) => {
-    event.preventDefault();
-    const name = $('#InputName').val();
-    const description = $('#InputDesc').val();
-    const status = $('#InputStatus').val();
-    const duedate = $('#InputDates').val();
-    const pk = localStorage.getItem('token')
-    const put_id = localStorage.getItem('put_id')
+  $('#feed').on('click', 'button', function (event) {
+    // console.log(event.currentTarget.id, );
+    let pk = localStorage.getItem('token')
+    let pr = event.currentTarget.id
 
-    console.log(pk)
-    
-    
-   
-
+    console.log(pk, pr, '++++++++')
     $.ajax({
-      method: 'put',
-      url: 'http://localhost:3000/user/add',
-      data: {
-        pk,
-        put_id,
-        name,
-        description,
-        status,
-        duedate
-      }
+      method: 'delete',
+      url: `http://localhost:3000/user/delete/${pk}/${pr}`
     })
     .done(data => {
-      // $('#feed').empty()
-
       console.log(data);
      
     })
     .fail(err => {
       console.log(err);
     })
-  });
+
+
+
+    
+
+  })
 
 })
