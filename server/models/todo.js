@@ -6,15 +6,17 @@ const todoSchema = new Schema({
   description: String,
   status: Boolean,
   due_date: Date,
-  UserId: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+  UserId: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
 const Todo = mongoose.model('Todo', todoSchema)
 
 module.exports = {
-  add(todo) {
+  add(todo, UserId) {
+    // add(todo) { // sementara ga pake req.activeUserId
     const { name, description, status, due_date } = todo
-    return Todo.create({ name, description, status, due_date })
+    // const { name, description, status, due_date, UserId } = todo
+    return Todo.create({ name, description, status, due_date, UserId })
   },
 
   find() {
