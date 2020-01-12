@@ -21,6 +21,7 @@ class todoController {
     }
 
     static getList(req, res, next) {
+        console.log('masuk controller todo')
         Todo.find()
             .then(result => {
                 res.status(200).json({result : result})

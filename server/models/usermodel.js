@@ -17,7 +17,8 @@ var userSchema = new Schema ({
         required: true,
         minlength: 4,
         maxlength: 6
-    } 
+    },
+    picture: String 
 })
 
 

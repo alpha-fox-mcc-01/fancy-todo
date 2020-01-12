@@ -6,6 +6,7 @@ const authentication = require('../middleware/authentication')
 
 router.post('/register', userController.addUser)
 router.post('/login', userController.login)
+router.post('/google-sign-in', userController.googleLogin)
 router.get('/', userController.getUser)
 router.delete('/:id', userController.deleteUser)
 router.put('/:id', userController.editUser)

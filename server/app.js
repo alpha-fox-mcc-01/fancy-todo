@@ -4,7 +4,10 @@ const express = require('express')
 const app = express()
 const routes = require('./routes/index')
 var mongoose = require('mongoose');
+const cors = require('cors')
 
+
+app.use(cors())
 mongoose.connect('mongodb://localhost/fancytodo', {useNewUrlParser: true, useUnifiedTopology: true});
 
 var db = mongoose.connection;
