@@ -63,6 +63,8 @@ class userController {
     }
 
     static login(req, res, next) {
+        console.log(req.body.email, 'email masuk nih')
+        console.log(req.body.password, 'password juga')
         User.findOne({ email : req.body.email})
             .then (result => {
                 if (result) {
@@ -72,6 +74,7 @@ class userController {
                         const access_token = jwt.sign({
                             id: result._id,
                         }, process.env.SECRET)
+                        console.log('login berhasil')
                         res.status(200).json({access_token : access_token})
                     } else {
                         next(401)

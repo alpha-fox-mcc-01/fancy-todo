@@ -18,3 +18,24 @@ function allTodos() {
         }) 
     })
 }
+
+function manualLogin(email, password) {
+    return new Promise( (resolve, reject) => {
+        $.ajax({
+            method: 'POST',
+            url: "http://localhost:3000/user/login",
+            data: {
+                email : email,
+                password: password
+            }
+        })
+        .done(data => {
+            console.log(data)
+            localStorage.setItem(data.access_token)
+            resolve(data)
+        })
+        .fail(err => {
+            reject(err)
+        }) 
+    })
+}

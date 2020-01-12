@@ -3,23 +3,136 @@
     <head>
         <title></title>
         <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
         <meta name="google-signin-client_id" content="784058454724-tb64jarvjnt039i08sieocel1t8i0su9.apps.googleusercontent.com">
     </head>
     <body>
-        <h1>Welcome to Fancy To-do</h1>
-
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        <a href="#" onclick="signOut();">Sign out</a>
-        <script>
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-            console.log('User signed out.');
-            });
-            localStorage.removeItem('access_token')
-        }
-        </script>
+        <!-- LOGIN/REGISTER PAGE -->
+        <section id="login">
+                <body class="font-sans-serif bg-gray-400">
+                        <!-- Container -->
+                        <div class="container mx-auto">
+                            <div class="flex justify-center px-6 my-12">
+                                <!-- Row -->
+                                <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+                                    <!-- Col -->
+                                    <div
+                                        class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+                                        style="background-image: url('https://i.pinimg.com/564x/0d/c5/22/0dc5223072f7cded30a2778a46d3b476.jpg')"
+                                    ></div>
+                                    <!-- Col -->
+                                    <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+                                        <h3 class="pt-4 text-2xl text-center">Welcome to Just-Do-It!</h3>
+                                        <p class="text-center">Your personalized To-do list</p>
+                                        <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
+                                            <div class="mb-4">
+                                                <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
+                                                    Email
+                                                </label>
+                                                <input
+                                                    class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                                    id="email"
+                                                    type="text"
+                                                    placeholder="Email"
+                                                />
+                                            </div>
+                                            <div class="mb-4">
+                                                <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
+                                                    Password
+                                                </label>
+                                                <input
+                                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                                    id="password"
+                                                    type="password"
+                                                    placeholder="Min. 4 characters"
+                                                />
+                                                <p class="text-xs italic text-red-500">Please choose a password.</p>
+                                            </div>
+                                            <div class="mb-6 text-center">
+                                                <button id="signin" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                                        Sign In
+                                                </button> 
+                                                <h3>&mdash;OR&mdash;</h3>
+                                               <div style="margin-left: 50px;" class="g-signin2" data-width="250" data-height="50" data-longtitle="true" data-onsuccess="onSignIn"></div>
+                                                <br>
+                                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                                         <a href="#" onclick="signOut();">Sign out</a>
+                                                </button>
+                                               
+                                                <script>
+                                                function signOut() {
+                                                    var auth2 = gapi.auth2.getAuthInstance();
+                                                    auth2.signOut().then(function () {
+                                                    console.log('User signed out.');
+                                                    });
+                                                    localStorage.removeItem('access_token')
+                                                }
+                                                </script>
+                                            </div>
+                                            <hr class="mb-6 border-t" />
+                                            <div class="text-center">
+                                                <a
+                                                    class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                                                    id="toregister" href="#"
+                                                >
+                                                    Create an Account!
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>            
+        </section>
+        <section id="register">
+                <div class="bg-grey-lighter min-h-screen flex flex-col">
+                        <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+                            <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                                <h1 class="mb-8 text-3xl text-center">Sign up</h1>
+                                <input 
+                                    type="text"
+                                    class="block border border-grey-light w-full p-3 rounded mb-4"
+                                    id="username"
+                                    placeholder="Username" />
+            
+                                <input 
+                                    type="text"
+                                    class="block border border-grey-light w-full p-3 rounded mb-4"
+                                    id="email"
+                                    placeholder="Email" />
+            
+                                <input 
+                                    type="password"
+                                    class="block border border-grey-light w-full p-3 rounded mb-4"
+                                    id="password"
+                                    placeholder="Password" />
+            
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                                        Create Account
+                                    </button>
+            
+                                <div class="text-center text-sm text-grey-dark mt-4">
+                                    By signing up, you agree to the 
+                                    <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
+                                        Terms of Service
+                                    </a> and 
+                                    <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
+                                        Privacy Policy
+                                    </a>
+                                </div>
+                            </div>
+            
+                            <div class="text-grey-dark mt-6">
+                                Already have an account? 
+                                <a class="no-underline border-b border-blue text-blue" href="/user/login/">
+                                    Log in
+                                </a>.
+                            </div>
+                        </div>
+                    </div>
+        </section>
 
         <button id="getTodo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
            Get Todo

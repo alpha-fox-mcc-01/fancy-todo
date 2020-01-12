@@ -1,5 +1,5 @@
 const Todo = require('../models/todomodel')
-
+const instance = require('../helper/axiosInstance')
 
 class todoController {
     static addTodo(req, res, next) {
@@ -22,9 +22,15 @@ class todoController {
 
     static getList(req, res, next) {
         console.log('masuk controller todo')
-        Todo.find()
+        let dailyQuote
+        instance.get('/advice')
+            .then( quote => {
+                dailyQuote = quote.data
+                return Todo.find().populate('User')
+            })
             .then(result => {
-                res.status(200).json({result : result})
+                console.log(dailyQuote, 'INI QUOTENYAAA')
+                res.status(200).json({result : result, qotd: dailyQuote.slip.advice})
             })
             .catch(err => {
                 console.log(err)

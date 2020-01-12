@@ -22,16 +22,33 @@ function onSignIn(googleUser) {
 
   $(document).ready(function(){
 
-    $("#getTodo").click(event => {
-      allTodos()
-            .then(result => {
-              console.log(result, 'ini result')
-              toastr.success('To-do list successfully fetched')
-            })
-            .catch(err => {
-              console.log(err)
-              toastr.warning('MUST login to access this page')
-            })
+    // $("#getTodo").click(event => {
+    //   allTodos()
+    //         .then(result => {
+    //           console.log(result, 'ini result')
+    //           toastr.success('To-do list successfully fetched')
+    //         })
+    //         .catch(err => {
+    //           console.log(err)
+    //           toastr.warning('MUST login to access this page')
+    //         })
+    // })
+
+    $("#signin").click(event => {
+      $("#login").hide()
+      let email = $("#email")
+      console.log('masuk')
+      let password = $("#password")
+      console.log(email.val(), password.val(), 'ini credentials')
+      manualLogin(email.val(), password.val())
+              .then(result => {
+                console.log(result, 'ini result')
+                toastr.success('Login successful!')
+              })
+              .catch(err => {
+                console.log(err)
+                toastr.warning('Unsuccessful login. Please check your email/password')
+              })
     })
     
     // jQuery methods go here...
