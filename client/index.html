@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <meta name="google-signin-client_id"
+      content="498012016942-5tbskscgl1o5ao6gfo30qpss9hpp2qn7.apps.googleusercontent.com">
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <link rel="stylesheet" href="./assets/css/style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+   <title>Fancy</title>
+</head>
+
+<body>
+   <!-- google sign belum (script dan button) -->
+   <section id="login-page">
+      <div class="row">
+         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+               <h5 class="card-title text-center">Sign In with Google account</h5>
+               <form class="form-signin">
+                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <section id="signed-in">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <a class="navbar-brand" href="#">Fancy Todo</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+               <a class="nav-item nav-link active" href="#" onclick="getTodo()">Your todo list</a>
+               <a class="nav-item nav-link" href='#' onclick="signOut()">Sign out</a>
+            </div>
+         </div>
+      </nav>
+
+      <div class='container my-3'>
+         <div class='row'>
+            <div class='col-3'>
+               <div class='border' style='border-radius: 4px; overflow: auto; max-height: 100vh;'>
+                  <div class="input-group mb-3 p-2">
+                     <input id='input_search_repo' type="text" class="form-control"
+                        placeholder="Search todo..."></input>
+                     <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                     </div>
+                  </div>
+                  <div id='content-container'>
+                     <!-- content list ada di sini -->
+                     <!-- <div class='content-item p-2 border-bottom'>
+                        <p class='font-weight-bold'>Nama Todo</p>
+                        <div class='row'>
+                           <div class='col'>
+                              <a href='#'>Edit todo <i class="fas fa-pencil-alt" style='margin-left: 7px;'></i></a>
+                           </div>
+                           <div class='col'>
+                              <a href="#">
+                                 Delete <i class="fas fa-trash-alt" style='margin-left: 7px'></i>
+                              </a>
+                           </div>
+                        </div>
+                     </div> -->
+                     <!-- sampai sini -->
+                  </div>
+               </div>
+            </div>
+            <div class='col-5'>
+               <!-- content detail dan create(on click) -->
+               <div class='border' style='border-radius: 4px; overflow: auto; max-height: 100vh; padding: 2rem;'>
+                  <h3>Detail todo</h3>
+                  <br>
+                  <br>
+                  <h4>Nama todo</h4>
+                  <br>
+                  <h5> Description : </h5>
+                  <p>
+                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                     industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                     and scrambled it to make a type specimen book. It has survived not only five centuries, but also
+                     the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the
+                     1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                     desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                  </p>
+                  <h5>Due_date :</h5>
+                  <p>12/12/2020</p>
+                  <h5>Status :</h5>
+                  <div id='done-todo'>
+                     <p>Undone <a href='#'><i class="fas fa-check-square"></i></a></p>
+                  </div>
+               </div>
+               <!-- sampai sini -->
+            </div>
+
+            <div class="col-4">
+               <div class="addTodo" id="addTodo">
+                  <div class="border" style='border-radius: 4px; overflow: auto; max-height: 100vh; padding: 2rem'>
+                     <h3>Create todo</h3>
+                     <div class="card-body">
+                        <form id="regis-form" method="POST" action="./assets/js/main.js">
+                           <div class="form-group">
+                              <label for="InputName">todo name</label>
+                              <input type="" class="form-control" id="InputName">
+                           </div>
+                           <div class="form-group">
+                              <label for="InputDesc">description</label>
+                              <input type="" class="form-control" id="InputDesc">
+                           </div>
+                           <div class="form-group">
+                              <label for="InputStatus">status</label>
+                              <input type="" class="form-control" id="InputStatus">
+                           </div>
+                           <div class="form-group">
+                              <label for="InputDates">due date</label>
+                              <input type="date" class="form-control" id="InputDates">
+                           </div>
+                           <button id="register-btn" type="submit" class="btn btn-primary">Create todo</button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+      </div>
+
+   </section>
+
+
+
+
+   <!-- script below -->
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
+   <script src="https://apis.google.com/js/platform.js" async defer></script>
+   <script src='./assets/js/main.js'></script>
+</body>
+
+</html>
