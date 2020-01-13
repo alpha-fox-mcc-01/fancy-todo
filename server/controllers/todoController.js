@@ -6,13 +6,9 @@ class TodoController {
     let checkUser = jwt.verify(req.headers.token, process.env.SECRET_KEY)
 
     Todo.create({
-      set_date: new Date(req.body.set_date),
-      due_date: new Date(req.body.due_date),
-      classification: req.body.classification, //Personal, Work, Shopping
-      priority: req.body.priority, //Urgent, Important, Standard
-      task: req.body.task,
-      description: req.body.description,
-      userId: checkUser.id
+        task: req.body.task,
+        description: req.body.description,
+        due_date: new Date(req.body.due_date)
     })
 
       .then(newTodo => {

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta name="google-signin-client_id" content="676017129086-c7ud8jk4km2rj77j88o10icq6mp75mes.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <link rel="shortcut icon" type="image/png" href="https://png.pngtree.com/svg/20170706/things_already_done_846505.png" />
+
+        <title>Fancy Todo | Adino Eleazar Manoppo</title>
+      </head>
+
+<body>
+    <button id="logOut" class="logout" name="logout" onclick="signOut()">Log Out</button>
+    <div id="entrance">
+        <div id="back">
+            <div class="backRight"></div>
+            <div class="backLeft"></div>
+        </div>
+    
+        <div id="slideBox">
+            <div class="topLayer">
+            <div class="left">
+                <div class="content">
+                <h2>Sign Up</h2>
+                <form id="form-signup" method="post" onsubmit="return false;">
+                    <div class="form-element form-stack">
+                    <label class="form-label">Name</label>
+                    <input id="name" type="text" name="name">
+                    </div>
+                    <div class="form-element form-stack">
+                    <label class="form-label">Email</label>
+                    <input id="email" type="email" name="email">
+                    </div>
+                    <div class="form-element form-stack">
+                    <label class="form-label">Password</label>
+                    <input id="password" type="password" name="password">
+                    </div>
+                    <div class="form-element form-submit">
+                    <button id="signUp" class="signup" type="submit" name="signup">Sign up</button>
+                    <button id="goLeft" class="signup off">Log In</button> 
+                    </div>
+                </form>
+                </div>
+            </div>
+            <div class="right">
+                <div class="content">
+                <h2>Login</h2>
+                <form id="form-login" method="post" onsubmit="return false;">
+                    <div class="form-element form-stack">
+                    <label for="email-login" class="form-label">Email</label>
+                    <input id="email-login" type="text" name="email">
+                    </div>
+                    <div class="form-element form-stack">
+                    <label for="password-login" class="form-label">Password</label>
+                    <input id="password-login" type="password" name="password">
+                    </div>
+                    <div class="form-element form-submit">
+                    <button id="logIn" class="login" type="submit" name="login">Log In</button>
+                    <button id="goRight" class="login off" name="signup">Sign Up</button>
+                    <div class="g-signin2" data-longtitle="true" data-onsuccess="onSignIn"></div>
+                    </div>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+        <div id="calendar" style="visibility: visible;"></div>
+        <button id="addTask" class="addtask" name="addtask">Add Task</button>
+        <div id="popup-form">
+            <form id="create-form">
+                <ul style="list-style: none; text-align: center;">
+                    <li>Task Name <input class="create-input" type="text" id="task" name="task" placeholder="task" /></li>
+                    <li>Description <textarea class="create-input" type="text" id="description" name="description" placeholder="description"
+                        ></textarea></li>
+                    <li>Due date <input class="create-input" id="dueDate" name="due_date" placeholder="pick date in calendar"
+                            readonly required/></li>
+                </ul>
+                <p onclick="addTodo($('#task').val(), $('#description').val(), $('#due_date').val())">Create</p>
+            </form>
+            <div class="error-message"></div>
+        </div>
+        <div id="wrapper">
+            <div id="app-container">
+                <ul id="todos-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+ 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./assets/gsignin.js"></script>
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>
