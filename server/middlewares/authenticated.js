@@ -6,12 +6,12 @@ const  User = require('../models/user')
 module.exports =  
     function(req, res, next){ 
         
-        
-        const acces_token = req.body.pk;
+        // console.log(req.headers,'====')
+        const { acces_token }= req.headers;
         if(acces_token) {
-            const authenticated = jwt.verify(acces_token, process.env.JWT_SECRET);
+            const authenticated = jwt.verify(acces_token, process.env.SECRET);
             if(authenticated) {
-                req.body.currentUserid = authenticated;
+                req.currentUserid = authenticated;
                 // console.log(req.body.currentUserid)
                 //FIND
                 next();
