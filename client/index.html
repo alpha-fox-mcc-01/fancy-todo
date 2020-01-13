@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="google-signin-client_id" content="854658090010-6opoqfhjqqj89ip6qvovt6d21sgtdn5t.apps.googleusercontent.com">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Raleway|Roboto+Mono|Source+Sans+Pro|Ubuntu&display=swap" rel="stylesheet">
+    <title>What-to-do App</title>
+</head>
+<body>
+    <header>
+        <div class='inline' id='navbtn'>
+            <ul id="slide-out" class="sidenav">
+                <li>
+                    <div class="user-view">
+                    </div>
+                </li>
+                <!-- <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+                <li><a href="#!">Second Link</a></li>
+                <li><div class="divider"></div></li>
+                <li><a class="subheader">Subheader</a></li>
+                <li><a class="waves-effect" href="#!">Third Link With Waves</a></li> -->
+                <li><a href="#" onclick="signOut();" id='sign-out-btn'>Sign out</a></li>
+            </ul>
+            <a href="#" data-target="slide-out" class="sidenav-trigger disabled" id='menu-nav-btn'><i class="material-icons" id="nav-access">menu</i></a>
+        </div>
+        <div class='inline' id='title'>
+            <h1>What-to-do</h1>
+        </div>
+        <div class='inline' id='add-btn-container'>
+            <button class="black btn waves-effect waves-light disabled " type="submit" name="action" id='new-task-btn'><i class="material-icons">add</i></button>
+        </div>
+        <div class='container center' id='signup'>
+            <div class="card-panel" id='card-signup'>
+                <div class="row">
+                    <div class="col s12">
+                      <ul class="tabs">
+                        <li class="tab col s6"><a class="active" href="#login-tab">Log In</a></li>
+                        <li class="tab col s6"><a href="#signup-tab">Sign Up</a></li>
+                      </ul>
+                    </div>
+                    <div id="login-tab" class="col s12">
+                        <form class="col s12" style='margin-top: 50px;'>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <input id="username" type="text" class="validate">
+                                <label for="username">Username</label>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <input id="password" type="password" class="validate">
+                                <label for="password">Password</label>
+                              </div>
+                            </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                            <div class="row">
+                                <center>
+                                    <div class="g-signin2" data-onsuccess="onSignIn" id="sign-in-btn"></div>
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="signup-tab" class="col s12">
+                        <form class="col s12" style='margin-top: 50px;'>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <input id="username" type="text" class="validate">
+                                <label for="username">Username</label>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <input id="password" type="password" class="validate">
+                                <label for="password">Password</label>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <input id="email" type="email" class="validate">
+                                <label for="email">Email</label>
+                              </div>
+                            </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main style='display: none;'>
+        <div class='container'id='todos-list'>
+            <div class='container' id='heading-stats'>
+                <div class="col s12 m7">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <div class="card-content">
+                            <p>Welcome! How was your day? Have you made something up? You can't just be lying idle there.</p>
+                            </div>
+                            <div class="card-action">
+                                <center>
+                                <div class='row'>
+                                    <div class='col s3' id='overdue'>
+                                        <!-- <a href='#' class='stats'>11</a> -->
+                                    </div>
+                                    <div class='col s3' id='todo'>
+                                        <!-- <a href='#' class='stats'>8</a> -->
+                                    </div>
+                                    <div class='col s3' id='due-today'>
+                                        <!-- <a href='#' class='stats'>9</a> -->
+                                    </div>
+                                    <div class='col s3'  id='completed'>
+                                        <!-- <a href='#' class='stats'>21</a> -->
+                                    </div>
+                                </div>
+                                <div class='row' id='timedue'>
+                                    <div class='col s3' >
+                                        <h5 class='status'>Overdue</h5>
+                                    </div>
+                                    <div class='col s3' >
+                                        <h5 class='status'>To do</h5>
+                                    </div>
+                                    <div class='col s3' >
+                                        <h5 class='status'>Due Today</h5>
+                                    </div>
+                                    <div class='col s3' >
+                                        <h5 class='status'>Completed</h5>
+                                    </div>
+                                </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h6>Due/Still Pending</h6>
+                <hr>
+            </div>
+            <div id="new-task" class="col s12" style='display: none'>
+                <form class="col s12" style='margin-top: 50px;'>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="taskname" type="text" class="validate">
+                        <label for="taskname">Username</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="description" type="text" class="validate">
+                        <label for="description">Description</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="due" type="date" class="validate">
+                        <label for="due">Email</label>
+                      </div>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action" id='submit-task'>Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/js/materialize.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+        });
+        $(document).ready(function(){
+            $('.tabs').tabs();
+        });
+    </script>
+    <script src='./assets/js/main.js'></script>
+</body>
+</html>

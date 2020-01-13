@@ -1,0 +1,115 @@
+body {
+    background-image: url("../images/BlueGreenBG.jpg");
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.inline {
+    display: inline-block;
+    margin-left: 100px;
+}
+
+/* .inline a {
+    margin-left: 100px;
+} */
+.inline h1{
+    text-align: center;
+    margin-left: 500px;
+}
+header h1{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sidenav-trigger{
+    color: white;
+}
+
+#nav-access {
+    font-size: 50px;
+}
+
+.material-icons {
+    font-size: 50px;
+    color: white;
+}
+
+#add-btn-container {
+    margin-left: 570px;
+}
+
+#heading-stats {
+    margin-top: 50px;
+    min-width: 88%;
+}
+
+#todos-cards {
+    width: 2000px;
+}
+
+.stats {
+    border-color: cyan;
+    /* margin-left: 125px;
+    padding-left: 80px; */
+    font-size: 50px;
+}
+
+#todos-list {
+    margin-top: 70px;
+    background-color: rgb(243, 240, 240);
+    display: flex;
+    min-height:1000px;
+}
+
+/* .cellContainer {
+    width: 200px;
+    float: left;
+} */
+
+/* .stats {
+    width: 100px;
+    float: left;
+} */
+
+.todo-card {
+    background-image: url("../images/BlueGreenBG.jpg");
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+#signup {
+    margin-top: 100px;
+}
+
+#card-signup {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.g-signin2 {
+    margin-top: 50px;
+}
+
+.tabs .tab a{
+    color:#000;
+} /*Black color to the text*/
+
+.tabs .tab a:hover {
+    background-color:#eee;
+    color:#000;
+} /*Text color on hover*/
+
+.tabs .tab a.active {
+    background-color:lightgray;
+    color:#000;
+} /*Background and text color when a tab is active*/
+
+.tabs .indicator {
+    background-color:#000;
+} /*Color of underline*/
+
+#new-task-btn {
+    color: white
+}
