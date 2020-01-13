@@ -1,0 +1,17 @@
+.card-signin .card-title {
+   margin-bottom: 2rem;
+   font-weight: 300;
+   font-size: 1.5rem;
+ }
+ 
+ .card-signin {
+   padding: 2rem;
+ }
+
+ .form-signin {
+   margin : auto;
+ }
+
+ .g-signin2 {
+   transition: all 0.2s;
+ }
