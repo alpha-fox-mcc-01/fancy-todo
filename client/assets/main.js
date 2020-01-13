@@ -56,6 +56,7 @@ function onSignIn(googleUser) {
                               
                             })
                             .then (newTodo => {
+                              console.log(newTodo, 'INI NEW TODO')
                               toastr.success('Todo successfully marked as done!')
 
                             })
@@ -68,7 +69,7 @@ function onSignIn(googleUser) {
                 $("button.remove").click(event => {
                   deleteTodo(event.target.id)
                             .then(result => {
-                              location.reload(true)
+                              console.log(result, 'ini result')
                               toastr.success('Todo successfully deleted!')
                             })
                             .catch(err => {
@@ -89,6 +90,34 @@ function onSignIn(googleUser) {
 
 
   $(document).ready(function(){
+
+
+    userTodo(userId)
+            .then(listTodo => {
+              $("#qotd").append(` <p class="text-grey-darker text-base">${listTodo.qotd}</p>`)
+              jQuery("#listtodos").html('')
+              listTodo.result.forEach( todo => {
+                todoId = todo._id
+                if (todo.status === 'done') {
+                  $("#listtodos").append(`<div class="flex mb-2 items-center">
+                  <p class="w-full line-through text-green">${todo.name}</p>
+                  <a>Status</a>
+                <p id="${todo._id}" class="done flex-no-shrink p-2 ml-4 mr-2 border-2 rounded">Already Done</p>
+                <button id="${todo._id}" class="remove flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">Remove</button><br></br>
+                </div>`)
+                } else {
+                  $("#listtodos").append(`<div class="flex mb-2 items-center">
+                  <p class="w-full text-black">${todo.name}</p>
+                  <a>Mark as </a>
+              <button id="${todo._id}" class="not-done flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey"><a>Done</a></button>
+              <button id="${todo._id}" class="remove flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">Remove</button><br></br>
+                </div>`)
+                }
+              })
+            }) 
+                .catch(err => {
+                  console.log(err)
+                })    
 
 
    
@@ -112,7 +141,6 @@ function onSignIn(googleUser) {
       manualLogin(email.val(), password.val())
               .then(result => {
                 $("#login").hide()
-                console.log(result, 'ini result')
                 $("#mainpage").show()
                 toastr.success('Login successful!')
               })
@@ -133,7 +161,6 @@ function onSignIn(googleUser) {
       let password = $("#newpassword")
       manualSignup(username.val(), email.val(), password.val())
                   .then(data => {
-                    console.log(data)
                     toastr.success('You are successfully registered!')
                   })
                   .catch(err => {
@@ -153,9 +180,8 @@ function onSignIn(googleUser) {
       let status = "not done"
       addTodo(todo.val(), due_date.val(), status, userId)
               .then(result => {
-                console.log(result)
                 $("#listtodos").append(`<div class="flex mb-2 items-center">
-                <p class="w-full line-through text-green">${todo.name}</p>
+                <p class="w-full text-black">${todo.val()}</p>
                 <a>Mark as </a>
               <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">Not Done</button>
               <button class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">Remove</button><br></br>
