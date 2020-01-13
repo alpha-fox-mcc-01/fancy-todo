@@ -18,6 +18,8 @@ function onSignIn(googleUser) {
       toastr.success('Login successful!')
       $("#login").hide()
       $("#mainpage").show()
+      jQuery("#profpic").html('')
+      jQuery("#fullname").html('')
       $("#profpic").append(`<img src="${profile.getImageUrl()}" class="rounded-full border-solid border-white border-2 -mt-3">`)
       $("#fullname").append(` <h3  class="text-black text-sm bold font-sans">${profile.getName()}</h3>`)
       userId = result.userId
