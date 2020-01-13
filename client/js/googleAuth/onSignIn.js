@@ -12,8 +12,9 @@ function onSignIn(googleUser) {
 			$('#loginSection').hide()
 
 			// fetch my todo
-			console.log('fetching todos');
 			getMyTodo()
+
+
 		})
 		.fail(err => {
 			console.log(err)
