@@ -98,17 +98,17 @@ class userController{
     static delete(req, res){
         let acces_token = req.params.userid;
         let authenticated = jwt.verify(acces_token, process.env.SECRET);
-       
-        User.findOne({
-            _id: authenticated
-        })
+        let pr = ObjectId(req.params.targetid)
+        User.findByIdAndUpdate(
+            authenticated,
+           { $pull: { 'todo': {  _id: pr } } })
         .then(data =>{
             // res.status(200).json({data})
-            console.log(data.todo)
+            console.log(data)
             let array1 = data.todo
-            let pr = ObjectId(req.params.targetid)
+            
 
-            const found = array1.find(x => x._id == pr)
+            const found = array1.find(x => ObjectId(x._id) === ObjectId(pr))
             console.log(found);
             
             
