@@ -8,6 +8,6 @@ const authorizeTodo = require('../middlewares/authorization-Todo')
 router.post('/', TodoController.createTodo)
 router.put('/', authorizeTodo, TodoController.updateTodo)
 router.patch('/', authorizeTodo, TodoController.toggleDone)
-// router.patch('/', authorizeTodo, TodoController.markTodoDone)
+router.delete('/', authorizeTodo, TodoController.removeTodo)
 
 module.exports = router

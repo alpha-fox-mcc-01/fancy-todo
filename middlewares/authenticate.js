@@ -39,6 +39,7 @@ module.exports = function (req, res, next) {
 			}
 		} catch (error) {
 			next({
+
 				code: 403,
 				msg: "bad access_token",
 				details: error

@@ -11,7 +11,7 @@ Registrasi / Sign-up new user:
 Login / Sign-in:
 | Access Type	| Request | URL | Params | Response
 |-|-|-|-|-
-| Public | GET | /users | email, password | access_token
+| Public | POST | /users | email, password | access_token
 
 \
 Change Password:
@@ -37,5 +37,21 @@ Fetch current user's todo
 Create new Todo
 | Access Type	| Request | URL | Params | Response
 |-|-|-|-|-
-| Private | POST | /users | follow Todo model | [createdTodo, updateResult]
+| Private | POST | /todos | follow Todo model | [createdTodo, updateResult]
 parameters: userId, title, descriptions, priority, category, isShoppingList, isDone
+
+Update new Todo
+| Access Type	| Request | URL | Params | Response
+|-|-|-|-|-
+| Private | PUT | /todos | follow Todo model | [createdTodo, updateResult]
+parameters: userId, title, descriptions, priority, category, isShoppingList, isDone
+
+Check / unCheck Todo
+| Access Type	| Request | URL | Params | Response
+|-|-|-|-|-
+| Private | PATCH | /todos | todoId | msg: check or un checked status
+
+Remove Todo
+| Access Type	| Request | URL | Params | Response
+|-|-|-|-|-
+| Private | DELETE | /todos | todoId | msg: check or un checked status

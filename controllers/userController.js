@@ -95,7 +95,8 @@ class UserController {
 					const valid = bcrypt.compareSync(req.body.password, user.password)
 					if (valid) {
 						const jwt_token = jwt.sign({ id: user._id }, process.env.JWT_PRIVATEKEY)
-						res.status(200).json({ access_token: jwt_token })
+						console.log(jwt_token);
+						res.status(200).json(jwt_token)
 					} else {
 						next({
 							code: 401,
@@ -182,6 +183,22 @@ class UserController {
 
 	static getMyTodo(req, res, next) {
 		User.findById(req.authenticatedUser, [ 'tags' ])
+			.populate('todos')
+			.then(result => {
+				res.status(200).json(result)
+			})
+			.catch(err => {
+				next({
+					code: 500,
+					msg: err
+				})
+			})
+	}
+
+	static getAppData(req, res, next) {
+		console.log(req.authenticatedUser, 'ini di getAppData');
+
+		User.findById(req.authenticatedUser)
 			.populate('todos')
 			.then(result => {
 				res.status(200).json(result)
