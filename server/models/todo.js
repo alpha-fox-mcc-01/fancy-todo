@@ -11,6 +11,13 @@ var todoSchema = new mongoose.Schema({
   }
 });
 
+todoSchema.pre('save', function(next) {
+  setTimeout(() => {
+    console.log('etetetet')
+    next()
+  }, 1000)
+})  
+
 const Todo = mongoose.model('Todo', todoSchema);
 
 module.exports = Todo;

@@ -38,7 +38,20 @@ class TodoController {
   }
 
   static updateTodo(req, res, next) {
-
+    const { name, description, status, due_date } = req.body;
+    const userId = req.currentUserId;
+    const { id } = req.params;
+    Todo.findByIdAndUpdate(id, {
+      name,
+      description,
+      status,
+      due_date,
+      userId
+    }, { runValidators: true })
+      .then(todo => {
+        res.status(201).json(todo);
+      })
+      .catch(next);
   }
 
   static updateTodoDesc(req, res, next) {
@@ -46,8 +59,20 @@ class TodoController {
   }
 
   static deleteTodo(req, res, next) {
-
+    Todo.findByIdAndDelete(req.params.id)
+      .then(result => {
+        if(result) {
+          res.status(200).json(result);
+        } else {
+          next({
+            name: 'Not Found',
+            errors: [ 'Todo not found' ],
+            status: 404
+          });
+        }
+      })
+      .catch(next);
   }
-}
+};
 
 module.exports = TodoController;

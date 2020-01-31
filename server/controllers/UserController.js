@@ -58,10 +58,18 @@ class UserController {
             const token = jwt.sign({_id: user._id}, process.env.SECRET);
             res.status(200).json({token})
           } else {
-            res.status(400).json({msg: 'Email or password wrong'});
+            next({
+              name: 'Bad Request',
+              status: 400,
+              errors: [ 'Email or password is wrong' ]
+            });
           }
         } else {
-          res.status(400).json({msg: 'Email or password wrong'});
+          next({
+            name: 'Bad Request',
+            status: 400,
+            errors: [ 'Email or password is wrong' ]
+          });
         }
       })
       .catch(next)
@@ -103,10 +111,6 @@ class UserController {
         res.status(201).json({token, todos})
       })
       .catch(next)
-  }
-
-  static logout(req, res, next) {
-
   }
 }
 
